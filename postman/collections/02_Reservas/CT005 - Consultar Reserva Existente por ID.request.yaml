@@ -1,0 +1,53 @@
+$kind: http-request
+name: CT005 - Consultar Reserva Existente por ID
+url: "{{baseURL}}/booking/{{bookingID}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter firstname\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"firstname\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter lastname\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"lastname\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter totalprice\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"totalprice\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter bookingdates\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"bookingdates\");\r
+
+      });"
+    language: text/javascript
+order: 3000

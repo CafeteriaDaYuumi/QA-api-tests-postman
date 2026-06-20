@@ -1,0 +1,8 @@
+name: Environment
+values:
+  - key: baseURL
+    value: ''
+  - key: token
+    value: ''
+  - key: bookingID
+    value: ''

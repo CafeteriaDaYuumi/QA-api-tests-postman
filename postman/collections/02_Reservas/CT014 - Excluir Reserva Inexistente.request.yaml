@@ -1,0 +1,23 @@
+$kind: http-request
+name: CT014 - Excluir Reserva Inexistente
+description: |-
+  Pré-condições:
+
+  - Executar o CT001 - Gerar Token de Autenticação com credenciais válidas.
+      
+  - Possuir um token válido armazenado na variável token.
+      
+  - Utilizar um ID de reserva inexistente para a execução do teste.
+url: "{{baseURL}}/booking/999999999"
+method: DELETE
+headers:
+  Cookie: token={{token}}
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve indicar erro\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([404, 405]);\r
+
+      });"
+    language: text/javascript
+order: 4497790504820489

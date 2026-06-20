@@ -1,0 +1,31 @@
+$kind: http-request
+name: CT013 - Excluir Reserva Existente sem Token
+description: |-
+  Pré-condições:
+
+  - Executar o CT004 - Criar Reserva com Dados Válidos.
+      
+  - Verificar se a variável bookingID foi preenchida corretamente.
+      
+  - Remover ou não informar o token de autenticação na requisição.
+      
+  - A reserva utilizada para o teste deve existir.
+url: "{{baseURL}}/booking/{{bookingID}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 403\", function () {\r
+
+      \    pm.response.to.have.status(403);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve indicar Forbidden\", function () {\r
+
+      \    pm.expect(pm.response.text()).to.include(\"Forbidden\");\r
+
+      });"
+    language: text/javascript
+order: 4484432018369123

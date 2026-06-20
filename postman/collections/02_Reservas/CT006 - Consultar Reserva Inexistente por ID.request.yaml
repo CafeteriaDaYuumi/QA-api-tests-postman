@@ -1,0 +1,21 @@
+$kind: http-request
+name: CT006 - Consultar Reserva Inexistente por ID
+url: "{{baseURL}}/booking/999999999"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 404\", function () {\r
+
+      \    pm.response.to.have.status(404);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve indicar Not Found\", function () {\r
+
+      \    pm.expect(pm.response.text()).to.include(\"Not Found\");\r
+
+      });"
+    language: text/javascript
+order: 5000

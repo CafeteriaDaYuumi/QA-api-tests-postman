@@ -1,0 +1,52 @@
+$kind: http-request
+name: CT001_Gerar Token de Acesso
+url: "{{baseURL}}/auth"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"username\": \"admin\",\r
+
+    \  \"password\": \"password123\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter token\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"token\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Token não deve estar vazio\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.token).to.not.be.empty;\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Salvar token no ambiente\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.environment.set(\"token\", jsonData.token);\r
+
+      });"
+    language: text/javascript
+order: 1781969969515

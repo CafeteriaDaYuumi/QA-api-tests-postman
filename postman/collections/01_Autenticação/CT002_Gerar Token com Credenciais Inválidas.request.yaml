@@ -1,0 +1,42 @@
+$kind: http-request
+name: CT002_Gerar Token com Credenciais Inválidas
+url: "{{baseURL}}/auth"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"username\": \"usuario_invalido\",\r
+
+    \  \"password\": \"senha_invalida\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter mensagem de erro\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"reason\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Mensagem deve indicar credenciais inválidas\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.reason).to.eql(\"Bad credentials\");\r
+
+      });"
+    language: text/javascript
+order: 2959949361668918

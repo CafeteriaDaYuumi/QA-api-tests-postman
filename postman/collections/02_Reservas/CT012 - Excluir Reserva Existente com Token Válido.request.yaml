@@ -1,0 +1,33 @@
+$kind: http-request
+name: CT012 - Excluir Reserva Existente com Token Válido
+description: |-
+  Pré-condições:
+
+  - Executar o CT001 - Gerar Token de Autenticação com credenciais válidas.
+      
+  - Executar o CT004 - Criar Reserva com Dados Válidos.
+      
+  - Verificar se as variáveis token e bookingID foram preenchidas corretamente.
+      
+  - A reserva utilizada para o teste deve existir e estar disponível para exclusão.
+url: "{{baseURL}}/booking/{{bookingID}}"
+method: DELETE
+headers:
+  Cookie: token={{token}}
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve indicar Created\", function () {\r
+
+      \    pm.expect(pm.response.text()).to.include(\"Created\");\r
+
+      });"
+    language: text/javascript
+order: 4383647476300679

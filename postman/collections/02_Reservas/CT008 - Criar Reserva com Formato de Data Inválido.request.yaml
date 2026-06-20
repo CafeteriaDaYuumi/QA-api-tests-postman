@@ -1,0 +1,46 @@
+$kind: http-request
+name: CT008 - Criar Reserva com Formato de Data Inválido
+url: "{{baseURL}}/booking"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"firstname\": \"Victor\",\r
+
+    \  \"lastname\": \"Hugo\",\r
+
+    \  \"totalprice\": 350,\r
+
+    \  \"depositpaid\": true,\r
+
+    \  \"bookingdates\": {\r
+
+    \    \"checkin\": \"data-invalida\",\r
+
+    \    \"checkout\": \"2026-07-05\"\r
+
+    \  },\r
+
+    \  \"additionalneeds\": \"Breakfast\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve indicar erro de validação\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([400, 422, 500]);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta não deve conter bookingid\", function () {\r
+
+      \    const responseText = pm.response.text();\r
+
+      \    pm.expect(responseText).to.not.include(\"bookingid\");\r
+
+      });"
+    language: text/javascript
+order: 2572495171356767

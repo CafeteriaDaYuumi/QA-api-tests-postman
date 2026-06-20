@@ -1,0 +1,53 @@
+$kind: http-request
+name: CT016 - Validar Contrato JSON da Consulta de Reserva por ID
+description: |-
+  Pré-condições:
+
+  - Executar o CT004 - Criar Reserva com Dados Válidos.
+      
+  - Verificar se a criação da reserva foi concluída com sucesso.
+      
+  - Garantir que a resposta da API contenha os dados da reserva criada para validação do contrato JSON.
+url: "{{baseURL}}/booking/{{bookingID}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Resposta possui firstname\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"firstname\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta possui lastname\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"lastname\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta possui totalprice\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"totalprice\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta possui bookingdates\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"bookingdates\");\r
+
+      });"
+    language: text/javascript
+order: 573437099905106

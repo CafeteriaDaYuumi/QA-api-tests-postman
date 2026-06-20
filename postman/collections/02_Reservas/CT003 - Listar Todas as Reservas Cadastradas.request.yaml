@@ -1,0 +1,53 @@
+$kind: http-request
+name: CT003 - Listar Todas as Reservas Cadastradas
+url: "{{baseURL}}/booking"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve ser uma lista\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.be.an(\"array\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Lista não deve estar vazia\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.length).to.be.above(0);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Primeiro item deve possuir bookingid\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData[0]).to.have.property(\"bookingid\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Salvar bookingID para próximos testes\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.environment.set(\"bookingID\", jsonData[0].bookingid);\r
+
+      });"
+    language: text/javascript
+order: 1000

@@ -1,0 +1,66 @@
+$kind: http-request
+name: CT004 - Criar Reserva com Dados Válidos
+url: "{{baseURL}}/booking"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"firstname\": \"Victor\",\r
+
+    \  \"lastname\": \"Hugo\",\r
+
+    \  \"totalprice\": 350,\r
+
+    \  \"depositpaid\": true,\r
+
+    \  \"bookingdates\": {\r
+
+    \    \"checkin\": \"2026-07-01\",\r
+
+    \    \"checkout\": \"2026-07-05\"\r
+
+    \  },\r
+
+    \  \"additionalneeds\": \"Breakfast\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter bookingid\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"bookingid\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve conter dados da reserva\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"booking\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Salvar bookingID para próximos testes\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.environment.set(\"bookingID\", jsonData.bookingid);\r
+
+      });"
+    language: text/javascript
+order: 2000

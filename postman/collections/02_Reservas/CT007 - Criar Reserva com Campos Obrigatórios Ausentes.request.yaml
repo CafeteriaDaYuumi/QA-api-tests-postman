@@ -1,0 +1,26 @@
+$kind: http-request
+name: CT007 - Criar Reserva com Campos Obrigatórios Ausentes
+url: "{{baseURL}}/booking"
+method: POST
+body:
+  type: json
+  content: "{\r\n  \"firstname\": \"Victor\"\r\n}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve indicar erro\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([400, 500]);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta não deve conter bookingid\", function () {\r
+
+      \    const responseText = pm.response.text();\r
+
+      \    pm.expect(responseText).to.not.include(\"bookingid\");\r
+
+      });"
+    language: text/javascript
+order: 4581

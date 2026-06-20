@@ -6,13 +6,13 @@ Testes de API REST com Postman — Restful Booker
 
 ---
 
-## CT001 — Gerar token com credenciais válidas
+## CT001 — Gerar Token com Credenciais Válidas
 
 **Endpoint:** POST /auth
 
 **Pré-condição:** API disponível.
 
-**Massa de dados:**
+**Massa de Dados:**
 
 ```json
 {
@@ -25,20 +25,21 @@ Testes de API REST com Postman — Restful Booker
 
 1. Enviar requisição POST para `/auth`.
 2. Informar credenciais válidas.
-3. Executar a requisição no Postman.
+3. Executar a requisição.
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar HTTP 200.
-* Retornar um token de autenticação válido.
+* Retornar token de autenticação válido.
+* O campo token não deve estar vazio.
 
 ---
 
-## CT002 — Gerar token com credenciais inválidas
+## CT002 — Gerar Token com Credenciais Inválidas
 
 **Endpoint:** POST /auth
 
-**Massa de dados:**
+**Massa de Dados:**
 
 ```json
 {
@@ -47,55 +48,30 @@ Testes de API REST com Postman — Restful Booker
 }
 ```
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar HTTP 200.
 * Retornar mensagem de falha na autenticação.
 
 ---
 
-## CT003 — Listar reservas cadastradas
+## CT003 — Listar Todas as Reservas Cadastradas
 
 **Endpoint:** GET /booking
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar HTTP 200.
 * Retornar lista de reservas cadastradas.
+* Retornar ao menos um campo `bookingid`.
 
 ---
 
-## CT004 — Consultar reserva existente por ID
-
-**Endpoint:** GET /booking/{id}
-
-**Pré-condição:** Existir uma reserva cadastrada.
-
-**Resultado esperado:**
-
-* Retornar HTTP 200.
-* Retornar os dados da reserva consultada.
-
----
-
-## CT005 — Consultar reserva inexistente
-
-**Endpoint:** GET /booking/{id}
-
-**Massa de dados:** ID inexistente.
-
-**Resultado esperado:**
-
-* Retornar HTTP 404.
-* Não retornar dados de reserva.
-
----
-
-## CT006 — Criar reserva com dados válidos
+## CT004 — Criar Reserva com Dados Válidos
 
 **Endpoint:** POST /booking
 
-**Massa de dados:**
+**Massa de Dados:**
 
 ```json
 {
@@ -111,7 +87,7 @@ Testes de API REST com Postman — Restful Booker
 }
 ```
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar HTTP 200.
 * Criar uma nova reserva.
@@ -120,11 +96,39 @@ Testes de API REST com Postman — Restful Booker
 
 ---
 
-## CT007 — Criar reserva com campos obrigatórios ausentes
+## CT005 — Consultar Reserva Existente por ID
+
+**Endpoint:** GET /booking/{id}
+
+**Pré-condição:**
+
+* Executar CT004 para criar uma reserva válida e armazenar o bookingID retornado pela API.
+
+**Resultado Esperado:**
+
+* Retornar HTTP 200.
+* Retornar os dados da reserva consultada.
+
+---
+
+## CT006 — Consultar Reserva Inexistente por ID
+
+**Endpoint:** GET /booking/{id}
+
+**Massa de Dados:** ID inexistente.
+
+**Resultado Esperado:**
+
+* Retornar HTTP 404.
+* Não retornar dados de reserva.
+
+---
+
+## CT007 — Criar Reserva com Campos Obrigatórios Ausentes
 
 **Endpoint:** POST /booking
 
-**Massa de dados:**
+**Massa de Dados:**
 
 ```json
 {
@@ -132,18 +136,18 @@ Testes de API REST com Postman — Restful Booker
 }
 ```
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
-* Retornar erro ou comportamento inconsistente documentado.
+* Retornar erro de validação ou comportamento inconsistente documentado.
 * Registrar defeito caso a API aceite dados incompletos.
 
 ---
 
-## CT008 — Criar reserva com formato de data inválido
+## CT008 — Criar Reserva com Formato de Data Inválido
 
 **Endpoint:** POST /booking
 
-**Massa de dados:**
+**Massa de Dados:**
 
 ```json
 {
@@ -159,23 +163,23 @@ Testes de API REST com Postman — Restful Booker
 }
 ```
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar erro de validação.
 * Registrar defeito caso a API aceite data inválida.
 
 ---
 
-## CT009 — Atualizar reserva existente com token válido
+## CT009 — Atualizar Reserva Existente com Token Válido
 
 **Endpoint:** PUT /booking/{id}
 
 **Pré-condição:**
 
-* Existir uma reserva cadastrada.
-* Possuir token de autenticação válido.
+* Executar CT001 para gerar um token válido.
+* Executar CT004 para criar uma reserva válida e armazenar o bookingID retornado pela API.
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar HTTP 200.
 * Atualizar os dados da reserva.
@@ -183,125 +187,155 @@ Testes de API REST com Postman — Restful Booker
 
 ---
 
-## CT010 — Atualizar reserva sem token
+## CT010 — Atualizar Reserva Existente sem Token
 
 **Endpoint:** PUT /booking/{id}
 
-**Pré-condição:** Existir uma reserva cadastrada.
+**Pré-condição:**
 
-**Resultado esperado:**
+* Executar CT004 para criar uma reserva válida.
+
+**Resultado Esperado:**
 
 * Retornar HTTP 403.
 * Não permitir alteração sem autenticação.
 
 ---
 
-## CT011 — Atualizar reserva inexistente
+## CT011 — Atualizar Reserva Inexistente
 
 **Endpoint:** PUT /booking/{id}
 
-**Pré-condição:** Possuir token válido.
+**Pré-condição:**
 
-**Resultado esperado:**
+* Possuir token de autenticação válido.
+
+**Resultado Esperado:**
 
 * Retornar erro para ID inexistente.
 * Não criar nova reserva indevidamente.
 
 ---
 
-## CT012 — Excluir reserva existente com token válido
+## CT012 — Excluir Reserva Existente com Token Válido
 
 **Endpoint:** DELETE /booking/{id}
 
 **Pré-condição:**
 
-* Existir uma reserva cadastrada.
-* Possuir token de autenticação válido.
+* Executar CT001 para gerar um token válido.
+* Executar CT004 para criar uma reserva válida e armazenar o bookingID retornado pela API.
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
 * Retornar HTTP 201.
 * Excluir a reserva informada.
 
 ---
 
-## CT013 — Excluir reserva sem token
+## CT013 — Excluir Reserva Existente sem Token
 
 **Endpoint:** DELETE /booking/{id}
 
-**Resultado esperado:**
+**Pré-condição:**
+
+* Executar CT004 para criar uma reserva válida.
+* Não informar token de autenticação.
+
+**Resultado Esperado:**
 
 * Retornar HTTP 403.
 * Não permitir exclusão sem autenticação.
 
 ---
 
-## CT014 — Excluir reserva inexistente
+## CT014 — Excluir Reserva Inexistente
 
 **Endpoint:** DELETE /booking/{id}
 
-**Pré-condição:** Possuir token válido.
+**Pré-condição:**
 
-**Resultado esperado:**
+* Possuir token de autenticação válido.
+
+**Resultado Esperado:**
 
 * Retornar erro para ID inexistente.
 * Não excluir nenhum registro válido.
 
 ---
 
-## CT015 — Validar contrato JSON da criação de reserva
+## CT015 — Validar Contrato JSON da Resposta de Criação de Reserva
 
 **Endpoint:** POST /booking
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
-A resposta deve conter:
+A resposta deve conter os campos obrigatórios do contrato JSON:
 
-```json
-{
-  "bookingid": "number",
-  "booking": {
-    "firstname": "string",
-    "lastname": "string",
-    "totalprice": "number",
-    "depositpaid": "boolean",
-    "bookingdates": {
-      "checkin": "string",
-      "checkout": "string"
-    },
-    "additionalneeds": "string"
-  }
-}
-```
+* bookingid
+* booking
+* firstname
+* lastname
+* totalprice
+* depositpaid
+* bookingdates
+* additionalneeds
 
 ---
 
-## CT016 — Validar contrato JSON da consulta de reserva
+## CT016 — Validar Contrato JSON da Consulta de Reserva por ID
 
 **Endpoint:** GET /booking/{id}
 
-**Resultado esperado:**
+**Resultado Esperado:**
 
-A resposta deve conter:
+A resposta deve conter todos os campos obrigatórios definidos no contrato JSON da consulta de reserva:
 
-```json
-{
-  "firstname": "string",
-  "lastname": "string",
-  "totalprice": "number",
-  "depositpaid": "boolean",
-  "bookingdates": {
-    "checkin": "string",
-    "checkout": "string"
-  },
-  "additionalneeds": "string"
-}
-```
+* firstname
+* lastname
+* totalprice
+* depositpaid
+* bookingdates
+* additionalneeds
+
+---
+
+## CT017 — Validar Código HTTP para Requisições Bem-Sucedidas
+
+**Escopo:** Cenários positivos.
+
+**Resultado Esperado:**
+
+* CT001 → HTTP 200
+* CT003 → HTTP 200
+* CT004 → HTTP 200
+* CT005 → HTTP 200
+* CT009 → HTTP 200
+* CT012 → HTTP 201
+
+---
+
+## CT018 — Validar Tratamento de Erro para Requisições Inválidas
+
+**Escopo:** Cenários negativos.
+
+**Resultado Esperado:**
+
+* CT002 → Falha de autenticação.
+* CT006 → HTTP 404.
+* CT007 → Erro ou comportamento documentado.
+* CT008 → Erro ou comportamento documentado.
+* CT010 → HTTP 403.
+* CT011 → Erro para ID inexistente.
+* CT013 → HTTP 403.
+* CT014 → Erro para ID inexistente.
 
 ---
 
 ## Observações
 
-Os resultados obtidos durante a execução deverão ser registrados por meio de evidências no Postman.
+As evidências dos testes deverão ser registradas por meio de capturas de tela e resultados obtidos no Postman.
 
-Caso o comportamento real seja diferente do resultado esperado, o desvio deverá ser documentado no Registro de Defeitos.
+Os testes utilizam variáveis de ambiente para gerenciamento do token de autenticação e do bookingID gerado dinamicamente durante a execução.
+
+Qualquer divergência entre o resultado esperado e o resultado obtido deverá ser registrada no documento Registro_de_Defeitos.md.

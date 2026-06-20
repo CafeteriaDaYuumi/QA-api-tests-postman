@@ -1,0 +1,17 @@
+$kind: http-request
+name: CT011 - Atualizar Reserva Inexistente
+url: "{{baseURL}}/booking/999999999"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Cookie: token={{token}}
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve indicar erro\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([404, 405]);\r
+
+      });"
+    language: text/javascript
+order: 4249943355529265

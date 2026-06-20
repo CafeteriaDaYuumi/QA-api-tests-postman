@@ -1,0 +1,24 @@
+$kind: http-request
+name: CT010 - Atualizar Reserva Existente sem Token
+url: "{{baseURL}}/booking/{{bookingID}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 403\", function () {\r
+
+      \    pm.response.to.have.status(403);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve indicar Forbidden\", function () {\r
+
+      \    pm.expect(pm.response.text()).to.include(\"Forbidden\");\r
+
+      });"
+    language: text/javascript
+order: 3983665361130545

@@ -1,0 +1,31 @@
+$kind: http-request
+name: CT018 - Validar Tratamento de Erro para Requisições Inválidas
+description: |-
+  Pré-condições:
+
+  - Possuir acesso à API Restful Booker.
+      
+  - Executar cenários com dados inválidos, inexistentes ou incompletos.
+      
+  - Executar requisições sem autenticação quando aplicável.
+      
+  - Garantir que os cenários negativos estejam configurados corretamente para validação das mensagens de erro e códigos de retorno.
+url: "{{baseURL}}/booking/999999999"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 404\", function () {\r
+
+      \    pm.response.to.have.status(404);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve indicar recurso inexistente\", function () {\r
+
+      \    pm.expect(pm.response.text()).to.include(\"Not Found\");\r
+
+      });"
+    language: text/javascript
+order: 4496886548465603

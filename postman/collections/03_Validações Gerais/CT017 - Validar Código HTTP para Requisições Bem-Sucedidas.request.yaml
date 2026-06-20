@@ -1,0 +1,29 @@
+$kind: http-request
+name: CT017 - Validar Código HTTP para Requisições Bem-Sucedidas
+description: |-
+  Pré-condições:
+
+  - Possuir acesso à API Restful Booker.
+      
+  - Executar os cenários positivos de autenticação, consulta, criação, atualização e exclusão de reservas.
+      
+  - Garantir que todas as requisições sejam enviadas com os dados e parâmetros válidos.
+url: "{{baseURL}}/booking"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code deve ser 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta deve ser bem-sucedida\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r
+
+      });"
+    language: text/javascript
+order: 4482958648250514
