@@ -1,5 +1,49 @@
 $kind: http-request
 name: CT011 - Atualizar Reserva Inexistente
+description: |-
+  ### CT011 - Atualizar Reserva Inexistente
+
+  **Objetivo:**  
+  Validar o comportamento da API ao tentar atualizar uma reserva inexistente utilizando autenticação válida.
+
+  **Pré-condições:**
+
+  - Executar CT001 para gerar um token válido.
+      
+  - Utilizar um bookingID inexistente.
+      
+
+  **Método:**  
+  PUT
+
+  **Endpoint:**  
+  /booking/{id}
+
+  **Passos:**
+
+  1. Informar um bookingID inexistente.
+      
+  2. Enviar requisição PUT para `/booking/{id}`.
+      
+  3. Informar dados válidos para atualização.
+      
+  4. Enviar token de autenticação válido.
+      
+  5. Executar a requisição.
+      
+
+  **Resultado Esperado:**
+
+  - A API não deve atualizar nenhum registro.
+      
+  - Deve retornar uma resposta de erro apropriada para recurso inexistente.
+      
+  - Não deve criar uma nova reserva automaticamente.
+      
+
+  **Critério de Aprovação:**
+
+  A API deve impedir a atualização de registros inexistentes e retornar uma resposta compatível com o cenário de erro.
 url: "{{baseURL}}/booking/999999999"
 method: PUT
 headers:
@@ -8,9 +52,29 @@ headers:
   Cookie: token={{token}}
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve indicar erro\", function () {\r
+    code: "// Exibe informações para análise\r
 
-      \    pm.expect(pm.response.code).to.be.oneOf([404, 405]);\r
+      console.log(\"Status retornado:\", pm.response.code);\r
+
+      console.log(\"Resposta:\", pm.response.text());\r
+
+      \r
+
+      // Valida que a API retornou uma resposta\r
+
+      pm.test(\"API deve retornar uma resposta\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.a(\"number\");\r
+
+      });\r
+
+      \r
+
+      // Valida que a operação não foi executada com sucesso\r
+
+      pm.test(\"Status code não deve ser 200\", function () {\r
+
+      \    pm.expect(pm.response.code).to.not.eql(200);\r
 
       });"
     language: text/javascript

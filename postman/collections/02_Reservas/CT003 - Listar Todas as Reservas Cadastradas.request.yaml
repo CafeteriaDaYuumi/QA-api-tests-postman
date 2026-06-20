@@ -1,10 +1,70 @@
 $kind: http-request
 name: CT003 - Listar Todas as Reservas Cadastradas
+description: |-
+  ### CT003 - Listar Todas as Reservas Cadastradas
+
+  **Objetivo:**  
+  Validar a consulta da lista de reservas cadastradas e verificar se a API retorna corretamente os identificadores das reservas existentes.
+
+  **Pré-condições:**
+
+  - API disponível para acesso.
+      
+  - Endpoint de consulta de reservas operacional.
+      
+  - Existir ao menos uma reserva cadastrada na aplicação.
+      
+
+  **Método:**  
+  GET
+
+  **Endpoint:**  
+  /booking
+
+  **Passos:**
+
+  1. Enviar uma requisição GET para `/booking`.
+      
+  2. Executar a requisição.
+      
+  3. Analisar a resposta retornada pela API.
+      
+  4. Verificar se a lista contém registros válidos.
+      
+
+  **Resultado Esperado:**
+
+  - Retornar HTTP 200.
+      
+  - Retornar uma lista (array) de reservas.
+      
+  - A lista não deve estar vazia.
+      
+  - Cada item retornado deve possuir o campo `bookingid`.
+      
+  - Um `bookingID` deve ser armazenado para utilização em testes posteriores.
+      
+
+  **Critério de Aprovação:**
+
+  A API deve retornar uma lista contendo reservas cadastradas e seus respectivos identificadores, permitindo a consulta de registros existentes.
+
+  **Observação:**
+
+  - O teste salva um `bookingID` aleatório na variável de ambiente `bookingID`.
+      
+  - O identificador armazenado poderá ser utilizado em consultas e validações posteriores.
+      
+  - Registrar o código HTTP retornado e a quantidade de registros encontrados como evidência de teste.
+      
+  - Caso a lista seja retornada vazia, registrar o comportamento para análise.
 url: "{{baseURL}}/booking"
 method: GET
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a requisição foi executada com sucesso\r
+
+      pm.test(\"Status code deve ser 200\", function () {\r
 
       \    pm.response.to.have.status(200);\r
 
@@ -12,9 +72,25 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve ser uma lista\", function () {\r
+      // Valida se a resposta está no formato JSON\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      // Converte a resposta para objeto JavaScript\r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      // Valida se a resposta é uma lista (array)\r
+
+      pm.test(\"Resposta deve ser uma lista\", function () {\r
 
       \    pm.expect(jsonData).to.be.an(\"array\");\r
 
@@ -22,9 +98,9 @@ scripts:
 
       \r
 
-      pm.test(\"Lista não deve estar vazia\", function () {\r
+      // Valida se existe pelo menos uma reserva cadastrada\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Lista não deve estar vazia\", function () {\r
 
       \    pm.expect(jsonData.length).to.be.above(0);\r
 
@@ -32,9 +108,9 @@ scripts:
 
       \r
 
-      pm.test(\"Primeiro item deve possuir bookingid\", function () {\r
+      // Valida se o primeiro registro possui o campo bookingid\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Primeiro item deve possuir bookingid\", function () {\r
 
       \    pm.expect(jsonData[0]).to.have.property(\"bookingid\");\r
 
@@ -42,12 +118,28 @@ scripts:
 
       \r
 
+      // Seleciona uma reserva aleatória da lista\r
+
+      // e salva o ID para utilização nos próximos testes\r
+
       pm.test(\"Salvar bookingID para próximos testes\", function () {\r
 
-      \    const jsonData = pm.response.json();\r
+      \r
 
-      \    pm.environment.set(\"bookingID\", jsonData[0].bookingid);\r
+      \    const randomIndex = Math.floor(Math.random() * jsonData.length);\r
 
-      });"
+      \    const bookingID = jsonData[randomIndex].bookingid;\r
+
+      \r
+
+      \    pm.environment.set(\"bookingID\", bookingID);\r
+
+      });\r
+
+      \r
+
+      // Exibe no console do Postman qual ID foi selecionado\r
+
+      console.log(\"Booking ID selecionado:\", pm.environment.get(\"bookingID\"));"
     language: text/javascript
 order: 1000

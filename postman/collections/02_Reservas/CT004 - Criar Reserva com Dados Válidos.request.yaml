@@ -1,5 +1,51 @@
 $kind: http-request
 name: CT004 - Criar Reserva com Dados Válidos
+description: |-
+  ### CT004 - Criar Reserva com Dados Válidos
+
+  **Objetivo:**  
+  Validar a criação de uma nova reserva utilizando dados válidos e verificar se a API retorna corretamente o identificador da reserva criada.
+
+  **Pré-condições:**
+
+  - API disponível para acesso.
+      
+  - Endpoint de criação de reservas operacional.
+      
+  - Possuir uma massa de dados válida para criação da reserva.
+      
+
+  **Método:**  
+  POST
+
+  **Endpoint:**  
+  /booking
+
+  **Passos:**
+
+  1. Enviar uma requisição POST para `/booking`.
+      
+  2. Informar todos os campos obrigatórios da reserva.
+      
+  3. Executar a requisição.
+      
+  4. Analisar a resposta retornada pela API.
+      
+
+  **Massa de Dados:**
+
+  \`\`\`json  
+  {  
+  "firstname": "Victor",  
+  "lastname": "Hugo",  
+  "totalprice": 350,  
+  "depositpaid": true,  
+  "bookingdates": {  
+  "checkin": "2026-07-01",  
+  "checkout": "2026-07-05"  
+  },  
+  "additionalneeds": "Breakfast"  
+  }
 url: "{{baseURL}}/booking"
 method: POST
 body:
@@ -27,7 +73,9 @@ body:
     }"
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a reserva foi criada com sucesso\r
+
+      pm.test(\"Status code deve ser 200\", function () {\r
 
       \    pm.response.to.have.status(200);\r
 
@@ -35,9 +83,25 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter bookingid\", function () {\r
+      // Valida se a resposta está em formato JSON\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      // Converte a resposta para objeto JavaScript\r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      // Valida se o ID da reserva foi retornado\r
+
+      pm.test(\"Resposta deve conter bookingid\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"bookingid\");\r
 
@@ -45,9 +109,9 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter dados da reserva\", function () {\r
+      // Valida se o objeto booking foi retornado\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve conter dados da reserva\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"booking\");\r
 
@@ -55,12 +119,44 @@ scripts:
 
       \r
 
-      pm.test(\"Salvar bookingID para próximos testes\", function () {\r
+      // Valida os dados principais da reserva criada\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Firstname deve ser Victor\", function () {\r
+
+      \    pm.expect(jsonData.booking.firstname).to.eql(\"Victor\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Lastname deve ser Hugo\", function () {\r
+
+      \    pm.expect(jsonData.booking.lastname).to.eql(\"Hugo\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"TotalPrice deve ser 350\", function () {\r
+
+      \    pm.expect(jsonData.booking.totalprice).to.eql(350);\r
+
+      });\r
+
+      \r
+
+      // Salva o bookingID para utilização nos próximos testes\r
+
+      pm.test(\"Salvar bookingID para próximos testes\", function () {\r
 
       \    pm.environment.set(\"bookingID\", jsonData.bookingid);\r
 
-      });"
+      });\r
+
+      \r
+
+      // Exibe o ID criado no console do Postman\r
+
+      console.log(\"Booking ID criado:\", jsonData.bookingid);"
     language: text/javascript
 order: 2000

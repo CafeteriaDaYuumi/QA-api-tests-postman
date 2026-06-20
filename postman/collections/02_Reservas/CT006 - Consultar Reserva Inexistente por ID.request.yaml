@@ -1,10 +1,64 @@
 $kind: http-request
 name: CT006 - Consultar Reserva Inexistente por ID
+description: |-
+  ### CT006 - Consultar Reserva Inexistente por ID
+
+  **Objetivo:**  
+  Validar o comportamento da API ao consultar uma reserva utilizando um ID inexistente.
+
+  **Pré-condições:**
+
+  - API disponível para acesso.
+      
+  - Endpoint de consulta de reservas operacional.
+      
+  - Utilizar um bookingID inexistente para a execução do teste.
+      
+
+  **Método:**  
+  GET
+
+  **Endpoint:**  
+  /booking/{id}
+
+  **Passos:**
+
+  1. Informar um ID de reserva inexistente.
+      
+  2. Enviar uma requisição GET para `/booking/{id}`.
+      
+  3. Executar a requisição.
+      
+  4. Analisar o código de retorno e a resposta da API.
+      
+
+  **Resultado Esperado:**
+
+  - A API deve informar que a reserva consultada não existe.
+      
+  - Não devem ser retornados dados de uma reserva válida.
+      
+  - A resposta deve ser compatível com o tratamento de recursos inexistentes adotado pela API.
+      
+
+  **Critério de Aprovação:**
+
+  A API deve tratar corretamente a consulta de registros inexistentes, retornando uma resposta coerente com o cenário executado.
+
+  **Observação:**
+
+  - Registrar o código HTTP retornado pela API.
+      
+  - Registrar a mensagem retornada na resposta.
+      
+  - Caso a API retorne dados de uma reserva para um ID inexistente, o comportamento deverá ser registrado como possível defeito.
 url: "{{baseURL}}/booking/999999999"
 method: GET
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 404\", function () {\r
+    code: "// Valida se a API retornou recurso inexistente\r
+
+      pm.test(\"Status code deve ser 404\", function () {\r
 
       \    pm.response.to.have.status(404);\r
 
@@ -12,9 +66,23 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve indicar Not Found\", function () {\r
+      // Exibe a resposta retornada pela API\r
 
-      \    pm.expect(pm.response.text()).to.include(\"Not Found\");\r
+      console.log(\"Resposta:\", pm.response.text());\r
+
+      \r
+
+      // Valida que nenhum dado de reserva foi retornado\r
+
+      pm.test(\"Não deve retornar dados de reserva\", function () {\r
+
+      \    const responseText = pm.response.text();\r
+
+      \r
+
+      \    pm.expect(responseText).to.not.include(\"firstname\");\r
+
+      \    pm.expect(responseText).to.not.include(\"lastname\");\r
 
       });"
     language: text/javascript

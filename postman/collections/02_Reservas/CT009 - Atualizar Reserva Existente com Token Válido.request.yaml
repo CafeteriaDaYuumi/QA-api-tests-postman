@@ -1,27 +1,34 @@
 $kind: http-request
 name: CT009 - Atualizar Reserva Existente com Token Válido
 description: |-
-  CT009 - Atualizar Reserva Existente com Token Válido
+  ### CT009 - Atualizar Reserva Existente com Token Válido
 
-  Objetivo:  
+  **Objetivo:**  
   Validar a atualização de uma reserva existente utilizando autenticação válida.
 
-  Pré-condições:
+  **Pré-condições:**
 
   - Executar CT001 para gerar um token válido.
       
   - Executar CT004 para criar uma reserva e armazenar o bookingID.
       
 
-  Resultado Esperado:
+  **Resultado Esperado:**
 
   - Retornar HTTP 200.
       
   - Atualizar os dados da reserva.
       
   - Retornar os dados atualizados no corpo da resposta.
+      
+
+  **Observação:**
+
+  - Se retornar HTTP 403, verificar se o token foi gerado e enviado corretamente.
+      
+  - Se retornar HTTP 404, verificar se o bookingID existe e foi armazenado corretamente.
 url: "{{baseURL}}/booking/{{bookingID}}"
-method: GET
+method: PUT
 headers:
   Accept: application/json
   Cookie: token={{token}}
@@ -50,7 +57,9 @@ body:
     }"
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a atualização foi realizada com sucesso\r
+
+      pm.test(\"Status code deve ser 200\", function () {\r
 
       \    pm.response.to.have.status(200);\r
 
@@ -58,23 +67,81 @@ scripts:
 
       \r
 
-      pm.test(\"Lastname deve estar atualizado\", function () {\r
+      // Exibe informações úteis para diagnóstico\r
 
-      \    const jsonData = pm.response.json();\r
+      console.log(\"Status retornado:\", pm.response.code);\r
 
-      \    pm.expect(jsonData.lastname).to.eql(\"Hugo Atualizado\");\r
+      console.log(\"Resposta retornada:\", pm.response.text());\r
 
-      });\r
+      console.log(\"Booking ID utilizado:\", pm.environment.get(\"bookingID\"));\r
+
+      console.log(\"Token utilizado:\", pm.environment.get(\"token\"));\r
 
       \r
 
-      pm.test(\"Totalprice deve estar atualizado\", function () {\r
+      // Executa as validações de JSON apenas se a resposta for 200\r
+
+      if (pm.response.code === 200) {\r
+
+      \r
+
+      \    // Valida se a resposta está em formato JSON\r
+
+      \    pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \        pm.response.to.be.json;\r
+
+      \    });\r
+
+      \r
+
+      \    // Converte a resposta para objeto JavaScript\r
 
       \    const jsonData = pm.response.json();\r
 
-      \    pm.expect(jsonData.totalprice).to.eql(450);\r
+      \r
 
-      });"
+      \    // Valida se o lastname foi atualizado corretamente\r
+
+      \    pm.test(\"Lastname deve estar atualizado\", function () {\r
+
+      \        pm.expect(jsonData.lastname).to.eql(\"Hugo Atualizado\");\r
+
+      \    });\r
+
+      \r
+
+      \    // Valida se o totalprice foi atualizado corretamente\r
+
+      \    pm.test(\"Totalprice deve estar atualizado\", function () {\r
+
+      \        pm.expect(jsonData.totalprice).to.eql(450);\r
+
+      \    });\r
+
+      \r
+
+      \    // Valida se o depositpaid foi atualizado corretamente\r
+
+      \    pm.test(\"Depositpaid deve estar atualizado\", function () {\r
+
+      \        pm.expect(jsonData.depositpaid).to.eql(false);\r
+
+      \    });\r
+
+      \r
+
+      \    // Valida se as datas foram atualizadas corretamente\r
+
+      \    pm.test(\"Datas da reserva devem estar atualizadas\", function () {\r
+
+      \        pm.expect(jsonData.bookingdates.checkin).to.eql(\"2026-08-01\");\r
+
+      \        pm.expect(jsonData.bookingdates.checkout).to.eql(\"2026-08-05\");\r
+
+      \    });\r
+
+      }"
     language: text/javascript
 settings:
   disabledSystemHeaders:

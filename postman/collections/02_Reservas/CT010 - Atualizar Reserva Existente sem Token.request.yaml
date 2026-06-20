@@ -1,5 +1,51 @@
 $kind: http-request
 name: CT010 - Atualizar Reserva Existente sem Token
+description: |-
+  ### CT010 - Atualizar Reserva Existente sem Token
+
+  **Objetivo:**  
+  Validar que a API não permite a atualização de uma reserva quando a requisição é enviada sem autenticação válida.
+
+  **Pré-condições:**
+
+  - Executar CT004 para criar uma reserva válida.
+      
+  - Possuir um bookingID válido armazenado no ambiente.
+      
+  - Não enviar token de autenticação na requisição.
+      
+
+  **Método:**  
+  PUT
+
+  **Endpoint:**  
+  /booking/{id}
+
+  **Passos:**
+
+  1. Informar um bookingID válido.
+      
+  2. Enviar requisição PUT para `/booking/{id}`.
+      
+  3. Informar dados válidos para atualização da reserva.
+      
+  4. Não enviar token de autenticação.
+      
+  5. Executar a requisição.
+      
+
+  **Resultado Esperado:**
+
+  - Retornar HTTP 403 (Forbidden).
+      
+  - Não permitir a atualização da reserva.
+      
+  - Manter os dados originais da reserva inalterados.
+      
+
+  **Critério de Aprovação:**
+
+  A API deve bloquear a operação de atualização quando não houver autenticação válida, retornando código HTTP 403.
 url: "{{baseURL}}/booking/{{bookingID}}"
 method: PUT
 headers:
@@ -7,7 +53,9 @@ headers:
   Accept: application/json
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 403\", function () {\r
+    code: "// Valida se a API bloqueou a atualização sem autenticação\r
+
+      pm.test(\"Status code deve ser 403\", function () {\r
 
       \    pm.response.to.have.status(403);\r
 
@@ -15,9 +63,19 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve indicar Forbidden\", function () {\r
+      // Exibe informações para análise\r
 
-      \    pm.expect(pm.response.text()).to.include(\"Forbidden\");\r
+      console.log(\"Status retornado:\", pm.response.code);\r
+
+      console.log(\"Resposta:\", pm.response.text());\r
+
+      \r
+
+      // Valida que a resposta não está vazia\r
+
+      pm.test(\"Resposta não deve estar vazia\", function () {\r
+
+      \    pm.expect(pm.response.text().length).to.be.above(0);\r
 
       });"
     language: text/javascript

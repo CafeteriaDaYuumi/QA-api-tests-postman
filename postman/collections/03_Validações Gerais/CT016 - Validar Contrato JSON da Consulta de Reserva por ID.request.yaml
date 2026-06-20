@@ -1,20 +1,72 @@
 $kind: http-request
 name: CT016 - Validar Contrato JSON da Consulta de Reserva por ID
 description: |-
-  Pré-condições:
+  ### CT016 - Validar Contrato JSON da Consulta de Reserva por ID
 
-  - Executar o CT004 - Criar Reserva com Dados Válidos.
+  **Objetivo:**  
+  Validar se a resposta da consulta de uma reserva segue o contrato JSON esperado pela API.
+
+  **Pré-condições:**
+
+  - Executar CT004 - Criar Reserva com Dados Válidos.
       
-  - Verificar se a criação da reserva foi concluída com sucesso.
+  - Verificar se a variável bookingID foi preenchida corretamente.
       
-  - Garantir que a resposta da API contenha os dados da reserva criada para validação do contrato JSON.
+  - Garantir que a reserva exista para consulta.
+      
+
+  **Método:**  
+  GET
+
+  **Endpoint:**  
+  /booking/{id}
+
+  **Passos:**
+
+  1. Executar CT004 para criar uma reserva válida.
+      
+  2. Obter o bookingID gerado.
+      
+  3. Enviar requisição GET para `/booking/{id}`.
+      
+  4. Executar a validação do contrato JSON.
+      
+
+  **Resultado Esperado:**
+
+  - A resposta deve estar em formato JSON.
+      
+  - Deve conter os campos firstname, lastname, totalprice, depositpaid, bookingdates e additionalneeds.
+      
+  - O objeto bookingdates deve conter os campos checkin e checkout.
+      
+
+  **Critério de Aprovação:**
+
+  O contrato JSON da resposta deve conter todos os campos obrigatórios esperados para a consulta de uma reserva.
 url: "{{baseURL}}/booking/{{bookingID}}"
 method: GET
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Resposta possui firstname\", function () {\r
+    code: "// Valida se a resposta está em formato JSON\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      // Converte a resposta para objeto JavaScript\r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      // Valida os campos principais do contrato\r
+
+      pm.test(\"Resposta possui firstname\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"firstname\");\r
 
@@ -24,8 +76,6 @@ scripts:
 
       pm.test(\"Resposta possui lastname\", function () {\r
 
-      \    const jsonData = pm.response.json();\r
-
       \    pm.expect(jsonData).to.have.property(\"lastname\");\r
 
       });\r
@@ -34,9 +84,15 @@ scripts:
 
       pm.test(\"Resposta possui totalprice\", function () {\r
 
-      \    const jsonData = pm.response.json();\r
-
       \    pm.expect(jsonData).to.have.property(\"totalprice\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta possui depositpaid\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"depositpaid\");\r
 
       });\r
 
@@ -44,10 +100,38 @@ scripts:
 
       pm.test(\"Resposta possui bookingdates\", function () {\r
 
-      \    const jsonData = pm.response.json();\r
-
       \    pm.expect(jsonData).to.have.property(\"bookingdates\");\r
 
-      });"
+      });\r
+
+      \r
+
+      pm.test(\"Bookingdates possui checkin\", function () {\r
+
+      \    pm.expect(jsonData.bookingdates).to.have.property(\"checkin\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Bookingdates possui checkout\", function () {\r
+
+      \    pm.expect(jsonData.bookingdates).to.have.property(\"checkout\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Resposta possui additionalneeds\", function () {\r
+
+      \    pm.expect(jsonData).to.have.property(\"additionalneeds\");\r
+
+      });\r
+
+      \r
+
+      // Exibe o contrato validado no console\r
+
+      console.log(\"Contrato JSON da consulta validado:\", jsonData);"
     language: text/javascript
 order: 573437099905106

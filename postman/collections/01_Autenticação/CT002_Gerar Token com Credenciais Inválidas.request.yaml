@@ -1,5 +1,44 @@
 $kind: http-request
 name: CT002_Gerar Token com Credenciais Inválidas
+description: |-
+  ### CT002 - Gerar Token com Credenciais Inválidas
+
+  **Objetivo:**  
+  Validar o comportamento da API ao receber credenciais inválidas durante o processo de autenticação.
+
+  **Pré-condições:**
+
+  - API disponível para acesso.
+      
+  - Endpoint de autenticação operacional.
+      
+  - Possuir credenciais inválidas para execução do teste.
+      
+
+  **Método:**  
+  POST
+
+  **Endpoint:**  
+  /auth
+
+  **Passos:**
+
+  1. Enviar uma requisição POST para `/auth`.
+      
+  2. Informar credenciais inválidas no corpo da requisição.
+      
+  3. Executar a requisição.
+      
+  4. Analisar a resposta retornada pela API.
+      
+
+  **Massa de Dados:**
+
+  \`\`\`json  
+  {  
+  "username": "usuario_invalido",  
+  "password": "senha_invalida"  
+  }
 url: "{{baseURL}}/auth"
 method: POST
 body:
@@ -13,7 +52,11 @@ body:
     }"
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a API respondeu conforme esperado\r
+
+      // A Restful Booker retorna HTTP 200 mesmo para credenciais inválidas\r
+
+      pm.test(\"Status code deve ser 200\", function () {\r
 
       \    pm.response.to.have.status(200);\r
 
@@ -21,9 +64,25 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter mensagem de erro\", function () {\r
+      // Valida se a resposta está em formato JSON\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      // Converte a resposta para objeto JavaScript\r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      // Valida se a resposta contém o campo de erro\r
+
+      pm.test(\"Resposta deve conter mensagem de erro\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"reason\");\r
 
@@ -31,12 +90,28 @@ scripts:
 
       \r
 
-      pm.test(\"Mensagem deve indicar credenciais inválidas\", function () {\r
+      // Valida se a mensagem retornada corresponde ao erro esperado\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Mensagem deve indicar credenciais inválidas\", function () {\r
 
       \    pm.expect(jsonData.reason).to.eql(\"Bad credentials\");\r
 
-      });"
+      });\r
+
+      \r
+
+      // Valida que nenhum token foi gerado\r
+
+      pm.test(\"Resposta não deve conter token\", function () {\r
+
+      \    pm.expect(jsonData).to.not.have.property(\"token\");\r
+
+      });\r
+
+      \r
+
+      // Exibe a mensagem retornada no console do Postman\r
+
+      console.log(\"Mensagem retornada:\", jsonData.reason);"
     language: text/javascript
 order: 2959949361668918

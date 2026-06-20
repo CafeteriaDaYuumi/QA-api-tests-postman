@@ -1,5 +1,44 @@
 $kind: http-request
 name: CT001_Gerar Token de Acesso
+description: |-
+  ### CT001 - Gerar Token de Acesso
+
+  **Objetivo:**  
+  Validar a autenticação na API e verificar se um token de acesso válido é gerado quando credenciais corretas são informadas.
+
+  **Pré-condições:**
+
+  - API disponível para acesso.
+      
+  - Endpoint de autenticação operacional.
+      
+  - Possuir credenciais válidas para autenticação.
+      
+
+  **Método:**  
+  POST
+
+  **Endpoint:**  
+  /auth
+
+  **Passos:**
+
+  1. Enviar uma requisição POST para `/auth`.
+      
+  2. Informar credenciais válidas no corpo da requisição.
+      
+  3. Executar a requisição.
+      
+  4. Analisar a resposta retornada pela API.
+      
+
+  **Massa de Dados:**
+
+  \`\`\`json  
+  {  
+  "username": "admin",  
+  "password": "password123"  
+  }
 url: "{{baseURL}}/auth"
 method: POST
 body:
@@ -13,7 +52,9 @@ body:
     }"
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a autenticação foi realizada com sucesso\r
+
+      pm.test(\"Status code deve ser 200\", function () {\r
 
       \    pm.response.to.have.status(200);\r
 
@@ -21,9 +62,25 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter token\", function () {\r
+      // Valida se a resposta está em formato JSON\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      // Converte a resposta para objeto JavaScript\r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      // Valida se o campo token foi retornado\r
+
+      pm.test(\"Resposta deve conter token\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"token\");\r
 
@@ -31,9 +88,9 @@ scripts:
 
       \r
 
-      pm.test(\"Token não deve estar vazio\", function () {\r
+      // Valida se o token gerado não está vazio\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Token não deve estar vazio\", function () {\r
 
       \    pm.expect(jsonData.token).to.not.be.empty;\r
 
@@ -41,12 +98,18 @@ scripts:
 
       \r
 
-      pm.test(\"Salvar token no ambiente\", function () {\r
+      // Salva o token para utilização nos testes que exigem autenticação\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Salvar token no ambiente\", function () {\r
 
       \    pm.environment.set(\"token\", jsonData.token);\r
 
-      });"
+      });\r
+
+      \r
+
+      // Exibe o token gerado no console do Postman\r
+
+      console.log(\"Token gerado:\", jsonData.token);"
     language: text/javascript
 order: 1781969969515

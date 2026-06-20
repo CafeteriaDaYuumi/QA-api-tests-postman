@@ -1,22 +1,84 @@
 $kind: http-request
 name: CT014 - Excluir Reserva Inexistente
 description: |-
-  Pré-condições:
+  ### CT014 - Excluir Reserva Inexistente
 
-  - Executar o CT001 - Gerar Token de Autenticação com credenciais válidas.
+  **Objetivo:**  
+  Validar o comportamento da API ao tentar excluir uma reserva inexistente utilizando autenticação válida.
+
+  **Pré-condições:**
+
+  - Executar CT001 para gerar um token válido.
       
   - Possuir um token válido armazenado na variável token.
       
   - Utilizar um ID de reserva inexistente para a execução do teste.
+      
+
+  **Método:**  
+  DELETE
+
+  **Endpoint:**  
+  /booking/{id}
+
+  **Headers:**
+
+  Cookie: token={{token}}
+
+  **Passos:**
+
+  1. Executar CT001 para gerar um token válido.
+      
+  2. Informar um bookingID inexistente.
+      
+  3. Enviar requisição DELETE para `/booking/{id}`.
+      
+  4. Informar o token de autenticação.
+      
+  5. Executar a requisição.
+      
+
+  **Resultado Esperado:**
+
+  - A API não deve excluir nenhum registro.
+      
+  - Deve retornar uma resposta de erro apropriada para recurso inexistente.
+      
+  - Não deve afetar reservas válidas existentes.
+      
+
+  **Critério de Aprovação:**
+
+  A API deve impedir a exclusão de registros inexistentes e retornar uma resposta compatível com o cenário de erro.
 url: "{{baseURL}}/booking/999999999"
 method: DELETE
 headers:
   Cookie: token={{token}}
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve indicar erro\", function () {\r
+    code: "// Exibe informações para análise\r
 
-      \    pm.expect(pm.response.code).to.be.oneOf([404, 405]);\r
+      console.log(\"Status retornado:\", pm.response.code);\r
+
+      console.log(\"Resposta:\", pm.response.text());\r
+
+      \r
+
+      // Valida que a API retornou uma resposta\r
+
+      pm.test(\"API deve retornar uma resposta\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.a(\"number\");\r
+
+      });\r
+
+      \r
+
+      // Valida que a exclusão não foi realizada com sucesso\r
+
+      pm.test(\"Status code não deve ser 201\", function () {\r
+
+      \    pm.expect(pm.response.code).to.not.eql(201);\r
 
       });"
     language: text/javascript

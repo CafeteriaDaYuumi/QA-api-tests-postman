@@ -1,10 +1,78 @@
 $kind: http-request
 name: CT005 - Consultar Reserva Existente por ID
+description: |-
+  ### CT005 - Consultar Reserva Existente por ID
+
+  **Objetivo:**  
+  Validar a consulta de uma reserva existente utilizando um ID válido.
+
+  **Pré-condições:**
+
+  - Executar o CT004 - Criar Reserva com Dados Válidos.
+      
+  - Verificar se a variável bookingID foi preenchida corretamente.
+      
+  - Garantir que a reserva criada esteja disponível para consulta.
+      
+
+  **Método:**  
+  GET
+
+  **Endpoint:**  
+  /booking/{id}
+
+  **Passos:**
+
+  1. Executar o CT004 para criar uma reserva válida.
+      
+  2. Obter o bookingID retornado pela API.
+      
+  3. Enviar uma requisição GET para `/booking/{id}` utilizando o bookingID criado.
+      
+  4. Executar a requisição.
+      
+  5. Analisar os dados retornados pela API.
+      
+
+  **Resultado Esperado:**
+
+  - Retornar HTTP 200.
+      
+  - Retornar os dados da reserva correspondente ao bookingID informado.
+      
+  - Retornar os campos esperados da reserva:
+      
+      - firstname
+          
+      - lastname
+          
+      - totalprice
+          
+      - depositpaid
+          
+      - bookingdates
+          
+      - additionalneeds
+          
+
+  **Critério de Aprovação:**
+
+  A API deve localizar a reserva existente e retornar seus dados corretamente, sem inconsistências ou ausência de informações obrigatórias.
+
+  **Observação:**
+
+  - O bookingID utilizado deve ter sido criado previamente durante a execução do CT004.
+      
+  - Caso a API retorne HTTP 404 ou não localize a reserva, verificar se o bookingID foi armazenado corretamente.
+      
+  - Registrar o código HTTP retornado e os dados recebidos na resposta.
 url: "{{baseURL}}/booking/{{bookingID}}"
 method: GET
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a consulta da reserva foi realizada com sucesso\r
+
+      pm.test(\"Status code deve ser 200\", function () {\r
 
       \    pm.response.to.have.status(200);\r
 
@@ -12,9 +80,25 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter firstname\", function () {\r
+      // Valida se a resposta está em formato JSON\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve estar em formato JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      // Converte a resposta para objeto JavaScript\r
+
+      const jsonData = pm.response.json();\r
+
+      \r
+
+      // Valida se a resposta contém o campo firstname\r
+
+      pm.test(\"Resposta deve conter firstname\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"firstname\");\r
 
@@ -22,9 +106,9 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter lastname\", function () {\r
+      // Valida se a resposta contém o campo lastname\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve conter lastname\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"lastname\");\r
 
@@ -32,9 +116,9 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter totalprice\", function () {\r
+      // Valida se a resposta contém o campo totalprice\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve conter totalprice\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"totalprice\");\r
 
@@ -42,12 +126,18 @@ scripts:
 
       \r
 
-      pm.test(\"Resposta deve conter bookingdates\", function () {\r
+      // Valida se a resposta contém o campo bookingdates\r
 
-      \    const jsonData = pm.response.json();\r
+      pm.test(\"Resposta deve conter bookingdates\", function () {\r
 
       \    pm.expect(jsonData).to.have.property(\"bookingdates\");\r
 
-      });"
+      });\r
+
+      \r
+
+      // Exibe no console o bookingID utilizado na consulta\r
+
+      console.log(\"Booking ID consultado:\", pm.environment.get(\"bookingID\"));"
     language: text/javascript
 order: 3000

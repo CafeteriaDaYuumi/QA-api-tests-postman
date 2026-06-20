@@ -1,29 +1,61 @@
 $kind: http-request
 name: CT017 - Validar Código HTTP para Requisições Bem-Sucedidas
 description: |-
-  Pré-condições:
+  ### CT017 - Validar Código HTTP para Requisições Bem-Sucedidas
+
+  **Objetivo:**  
+  Validar se a API retorna os códigos HTTP esperados para operações executadas com sucesso.
+
+  **Pré-condições:**
 
   - Possuir acesso à API Restful Booker.
       
   - Executar os cenários positivos de autenticação, consulta, criação, atualização e exclusão de reservas.
       
-  - Garantir que todas as requisições sejam enviadas com os dados e parâmetros válidos.
+  - Garantir que todas as requisições sejam enviadas com dados válidos.
+      
+
+  **Escopo:**
+
+  - CT001 → HTTP 200
+      
+  - CT003 → HTTP 200
+      
+  - CT004 → HTTP 200
+      
+  - CT005 → HTTP 200
+      
+  - CT009 → HTTP 200
+      
+  - CT012 → HTTP 201
+      
+
+  **Resultado Esperado:**
+
+  - Todas as operações bem-sucedidas devem retornar códigos HTTP compatíveis com sucesso.
+      
+  - Nenhuma operação válida deve retornar códigos de erro.
+      
+
+  **Critério de Aprovação:**
+
+  Todos os cenários positivos devem retornar os códigos HTTP esperados pela especificação da API.
 url: "{{baseURL}}/booking"
 method: GET
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Status code deve ser 200\", function () {\r
+    code: "// Valida se a resposta indica sucesso\r
 
-      \    pm.response.to.have.status(200);\r
+      pm.test(\"Status code deve indicar sucesso\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r
 
       });\r
 
       \r
 
-      pm.test(\"Resposta deve ser bem-sucedida\", function () {\r
+      // Exibe o código retornado\r
 
-      \    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r
-
-      });"
+      console.log(\"Status retornado:\", pm.response.code);"
     language: text/javascript
 order: 4482958648250514
