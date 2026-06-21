@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "name": "Flow 01 -  CRUD Positivo",
+  "description": "",
+  "flow": {
+    "description": "",
+    "nodes": {
+      "mBq7A4pL": {
+        "type": "ev/endpoint@3",
+        "pos": {
+          "x": 0,
+          "y": 0
+        },
+        "config": {
+          "inputs": [],
+          "data": "",
+          "language": "json",
+          "allowAnyType": false
+        },
+        "ui": {
+          "data": {
+            "triggerType": "ev/endpoint@3"
+          },
+          "namedInputsExpanded": true
+        }
+      },
+      "qiEWoZbd": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 352,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "e4Ceb079fcc3d1c7BfEc17Aa",
+            "collection": "bEbFe6a65b8a5EA7Ec0B354B",
+            "inExtensibleCollection": true,
+            "name": "CT001_Gerar Token de Acesso",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "Ubms_KxQ",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "RePSSBgZ": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 680,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "68EF7e972FD24dB0BCB9CDA6",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT003 - Listar Todas as Reservas Cadastradas",
+            "method": "GET"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "FWLyiD2s",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "GgpgZKt-": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 1064,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "C5caD897Fa8f0eBA6D89AF43",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT004 - Criar Reserva com Dados Válidos",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "UF2BpGkG",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": false,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "dcgzQRGO": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 320,
+          "y": 360
+        },
+        "config": {
+          "element": {
+            "id": "bcEABcC94C3E5e1B9DB7DdC7",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT005 - Consultar Reserva Existente por ID",
+            "method": "GET"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "e3H_90i-",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "EAlIdE_z",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "bookingID"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "ESnyallB": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 672,
+          "y": 360
+        },
+        "config": {
+          "element": {
+            "id": "2D0DbCe35ab6B8fAe9C148Ba",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT009 - Atualizar Reserva Existente com Token Válido",
+            "method": "PUT"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "ctUGszo3",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "BNkdEGu-",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "bookingID"
+            },
+            {
+              "id": "fC3TvUfb",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "token"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "mpk5yUnl": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 1056,
+          "y": 360
+        },
+        "config": {
+          "element": {
+            "id": "ec8f8ca8b8b1473a6a191BdB",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT012 - Excluir Reserva Existente com Token Válido",
+            "method": "DELETE"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "FMCawH3v",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "6ONczffc",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "bookingID"
+            },
+            {
+              "id": "82xXp3qo",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "token"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      }
+    },
+    "connections": {
+      "-ljHU69-": {
+        "source": "mBq7A4pL",
+        "target": "qiEWoZbd",
+        "sourcePort": "data",
+        "targetPort": "AI"
+      },
+      "XxeKvZQc": {
+        "source": "qiEWoZbd",
+        "target": "RePSSBgZ",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "Ofg6RzVd": {
+        "source": "RePSSBgZ",
+        "target": "GgpgZKt-",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "MmahVVet": {
+        "source": "GgpgZKt-",
+        "target": "dcgzQRGO",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "Vrun8rdG": {
+        "source": "dcgzQRGO",
+        "target": "ESnyallB",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "ATOZekCT": {
+        "source": "ESnyallB",
+        "target": "mpk5yUnl",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      }
+    },
+    "annotations": {},
+    "groups": {},
+    "webhook": {
+      "payloadContent": "body-only",
+      "responseType": "default"
+    },
+    "forms": {},
+    "modules": {},
+    "io": {},
+    "ports": {},
+    "meta": {},
+    "scenes": {},
+    "scenarios": {},
+    "config": {
+      "definitions": {},
+      "constants": {}
+    }
+  },
+  "lockbox": {},
+  "info": {
+    "_postman_id": "a1ccdb71-896a-4d34-9495-56000d3e17d6"
+  },
+  "_postman_exported_at": "2026-06-21T15:57:18.723Z",
+  "_postman_exported_using": "Postman/Local Mode"
+}

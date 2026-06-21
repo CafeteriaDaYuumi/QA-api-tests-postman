@@ -1,0 +1,307 @@
+{
+  "version": 1,
+  "name": "Flow 04 - Validaes Gerais",
+  "description": "",
+  "flow": {
+    "description": "",
+    "nodes": {
+      "PI1hnrfW": {
+        "type": "ev/endpoint@3",
+        "pos": {
+          "x": 48,
+          "y": 72
+        },
+        "config": {
+          "inputs": [],
+          "data": "",
+          "language": "json",
+          "allowAnyType": false
+        },
+        "ui": {
+          "data": {
+            "triggerType": "ev/endpoint@3"
+          },
+          "namedInputsExpanded": true
+        }
+      },
+      "_88PoRQa": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 352,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "e4Ceb079fcc3d1c7BfEc17Aa",
+            "collection": "bEbFe6a65b8a5EA7Ec0B354B",
+            "inExtensibleCollection": true,
+            "name": "CT001_Gerar Token de Acesso",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "zWTaEd1x",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "dreDoVao": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 696,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "C5caD897Fa8f0eBA6D89AF43",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT004 - Criar Reserva com Dados Válidos",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "oDx2u1FN",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "NfXdkYNK": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 320,
+          "y": 400
+        },
+        "config": {
+          "element": {
+            "id": "Be36a8fDECd49835FC6BDdb8",
+            "collection": "310626be77c7748bEe014CfF",
+            "inExtensibleCollection": true,
+            "name": "CT015 - Validar Contrato JSON da Criação de Reserva",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "zB4eVzAS",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "DAl-KGwC": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 696,
+          "y": 400
+        },
+        "config": {
+          "element": {
+            "id": "E1Dfa766b8bc77c10d543DF7",
+            "collection": "310626be77c7748bEe014CfF",
+            "inExtensibleCollection": true,
+            "name": "CT016 - Validar Contrato JSON da Consulta de Reserva por ID",
+            "method": "GET"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "yO0g8xrA",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "LB6gZfNQ",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "bookingID"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": false,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "Zm6FpXgQ": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 1072,
+          "y": 400
+        },
+        "config": {
+          "element": {
+            "id": "40f0E03DFc0ECBDf91ee82b9",
+            "collection": "310626be77c7748bEe014CfF",
+            "inExtensibleCollection": true,
+            "name": "CT017 - Validar Código HTTP para Requisições Bem-Sucedidas",
+            "method": "GET"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "qTiRt_Ie",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "qvP_DzAt": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 1448,
+          "y": 424
+        },
+        "config": {
+          "element": {
+            "id": "D3dAbaffeD1ec6c2ac3B5e3c",
+            "collection": "310626be77c7748bEe014CfF",
+            "inExtensibleCollection": true,
+            "name": "CT018 - Validar Tratamento de Erro para Requisições Inválidas",
+            "method": "GET"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "nLbUaxAH",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      }
+    },
+    "connections": {
+      "l8QL4Xqk": {
+        "source": "PI1hnrfW",
+        "target": "_88PoRQa",
+        "sourcePort": "data",
+        "targetPort": "AI"
+      },
+      "KA6CtyGs": {
+        "source": "_88PoRQa",
+        "target": "dreDoVao",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "K5xeShgl": {
+        "source": "dreDoVao",
+        "target": "NfXdkYNK",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "eUU0gxTl": {
+        "source": "NfXdkYNK",
+        "target": "DAl-KGwC",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "__jIdUug": {
+        "source": "DAl-KGwC",
+        "target": "Zm6FpXgQ",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "1T9cylXw": {
+        "source": "Zm6FpXgQ",
+        "target": "qvP_DzAt",
+        "sourcePort": "fail",
+        "targetPort": "AI"
+      }
+    },
+    "annotations": {},
+    "groups": {},
+    "webhook": {
+      "payloadContent": "body-only",
+      "responseType": "default"
+    },
+    "forms": {},
+    "modules": {},
+    "io": {},
+    "ports": {},
+    "meta": {},
+    "scenes": {},
+    "scenarios": {},
+    "config": {
+      "definitions": {},
+      "constants": {}
+    }
+  },
+  "lockbox": {},
+  "info": {
+    "_postman_id": "7cd649f4-27bb-45f0-91d7-23b6d6e1cce1"
+  },
+  "_postman_exported_at": "2026-06-21T15:57:01.221Z",
+  "_postman_exported_using": "Postman/Local Mode"
+}
