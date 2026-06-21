@@ -1,0 +1,256 @@
+{
+  "version": 1,
+  "flows": {
+    "a1ccdb71-896a-4d34-9495-56000d3e17d6": {
+      "path": "postman/flows/Flow 01 - CRUD Positivo.flow",
+      "dependencies": [
+        {
+          "local": {
+            "collectionId": "bEbFe6a65b8a5EA7Ec0B354B",
+            "requestId": "e4Ceb079fcc3d1c7BfEc17Aa",
+            "filePath": "postman/collections/01_Autenticação/CT001_Gerar Token de Acesso.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "68EF7e972FD24dB0BCB9CDA6",
+            "filePath": "postman/collections/02_Reservas/CT003 - Listar Todas as Reservas Cadastradas.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "C5caD897Fa8f0eBA6D89AF43",
+            "filePath": "postman/collections/02_Reservas/CT004 - Criar Reserva com Dados Válidos.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "bcEABcC94C3E5e1B9DB7DdC7",
+            "filePath": "postman/collections/02_Reservas/CT005 - Consultar Reserva Existente por ID.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "2D0DbCe35ab6B8fAe9C148Ba",
+            "filePath": "postman/collections/02_Reservas/CT009 - Atualizar Reserva Existente com Token Válido.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "ec8f8ca8b8b1473a6a191BdB",
+            "filePath": "postman/collections/02_Reservas/CT012 - Excluir Reserva Existente com Token Válido.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        }
+      ]
+    },
+    "5564fae3-df1e-4763-976a-4bac29ca1411": {
+      "path": "postman/flows/Flow 02 - Validao de entrada.flow",
+      "dependencies": [
+        {
+          "local": {
+            "collectionId": "bEbFe6a65b8a5EA7Ec0B354B",
+            "requestId": "9Af6Fddb7F6FAA9EDFf2B3Eb",
+            "filePath": "postman/collections/01_Autenticação/CT002_Gerar Token com Credenciais Inválidas.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "fE8ca82A46ec8bA2EA5B886f",
+            "filePath": "postman/collections/02_Reservas/CT006 - Consultar Reserva Inexistente por ID.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "b2F1aE9cfAB5Cbcf4EdF04aD",
+            "filePath": "postman/collections/02_Reservas/CT007 - Criar Reserva com Campos Obrigatórios Ausentes.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "a04ffa312DAEe17F9A7aCeA5",
+            "filePath": "postman/collections/02_Reservas/CT008 - Criar Reserva com Formato de Data Inválido.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        }
+      ]
+    },
+    "fe677780-daec-4daa-a774-dd04bd1554fa": {
+      "path": "postman/flows/Flow 03 - Autorizao e recursos.flow",
+      "dependencies": [
+        {
+          "local": {
+            "collectionId": "bEbFe6a65b8a5EA7Ec0B354B",
+            "requestId": "e4Ceb079fcc3d1c7BfEc17Aa",
+            "filePath": "postman/collections/01_Autenticação/CT001_Gerar Token de Acesso.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "C5caD897Fa8f0eBA6D89AF43",
+            "filePath": "postman/collections/02_Reservas/CT004 - Criar Reserva com Dados Válidos.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "03eA2b6E3b1d3BE9Fd15bfb7",
+            "filePath": "postman/collections/02_Reservas/CT010 - Atualizar Reserva Existente sem Token.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "dae0A9e3dEb16f28cd78Bd42",
+            "filePath": "postman/collections/02_Reservas/CT013 - Excluir Reserva Existente sem Token.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "Da19CefCFf0CC77B0a9B9c7f",
+            "filePath": "postman/collections/02_Reservas/CT014 - Excluir Reserva Inexistente.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        }
+      ]
+    },
+    "7cd649f4-27bb-45f0-91d7-23b6d6e1cce1": {
+      "path": "postman/flows/Flow 04 - Validaes Gerais.flow",
+      "dependencies": [
+        {
+          "local": {
+            "collectionId": "bEbFe6a65b8a5EA7Ec0B354B",
+            "requestId": "e4Ceb079fcc3d1c7BfEc17Aa",
+            "filePath": "postman/collections/01_Autenticação/CT001_Gerar Token de Acesso.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "97D0ab7e7fEE85b1bCD4cCAe",
+            "requestId": "C5caD897Fa8f0eBA6D89AF43",
+            "filePath": "postman/collections/02_Reservas/CT004 - Criar Reserva com Dados Válidos.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "310626be77c7748bEe014CfF",
+            "requestId": "Be36a8fDECd49835FC6BDdb8",
+            "filePath": "postman/collections/03_Validações Gerais/CT015 - Validar Contrato JSON da Criação de Reserva.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "310626be77c7748bEe014CfF",
+            "requestId": "E1Dfa766b8bc77c10d543DF7",
+            "filePath": "postman/collections/03_Validações Gerais/CT016 - Validar Contrato JSON da Consulta de Reserva por ID.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "310626be77c7748bEe014CfF",
+            "requestId": "40f0E03DFc0ECBDf91ee82b9",
+            "filePath": "postman/collections/03_Validações Gerais/CT017 - Validar Código HTTP para Requisições Bem-Sucedidas.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        },
+        {
+          "local": {
+            "collectionId": "310626be77c7748bEe014CfF",
+            "requestId": "D3dAbaffeD1ec6c2ac3B5e3c",
+            "filePath": "postman/collections/03_Validações Gerais/CT018 - Validar Tratamento de Erro para Requisições Inválidas.request.yaml"
+          },
+          "cloud": {
+            "collectionId": null,
+            "requestId": null
+          }
+        }
+      ]
+    }
+  }
+}

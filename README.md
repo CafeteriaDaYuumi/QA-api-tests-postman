@@ -1,21 +1,20 @@
-# Testes de API REST com Postman - Restful Booker
+# Testes de API REST com Postman — Restful Booker
 
-Projeto desenvolvido com foco em Planejamento, Execução e Documentação de Testes de API REST utilizando Postman.
+Projeto desenvolvido com foco em Qualidade de Software (QA), contemplando planejamento, execução e documentação de testes em APIs REST utilizando Postman.
 
-O objetivo do projeto é validar os principais endpoints da API Restful Booker através de cenários positivos e negativos, verificando códigos HTTP, contratos JSON, autenticação, regras de negócio e tratamento de erros.
+O objetivo é demonstrar um fluxo completo de testes, incluindo validações funcionais, testes negativos, validação de contratos JSON, registro de evidências e documentação de defeitos encontrados durante a execução.
 
 ---
 
 # Objetivos
 
-* Planejar e documentar os testes da API.
-* Validar endpoints REST.
-* Verificar códigos de resposta HTTP.
+* Validar endpoints REST utilizando Postman.
+* Executar testes positivos e negativos.
+* Validar códigos de resposta HTTP.
 * Validar contratos JSON.
-* Executar cenários positivos e negativos.
-* Identificar e registrar defeitos.
-* Produzir evidências e documentação de testes.
-* Demonstrar um fluxo completo de QA Manual.
+* Registrar evidências dos testes executados.
+* Documentar defeitos encontrados.
+* Demonstrar boas práticas de QA em APIs.
 
 ---
 
@@ -24,9 +23,10 @@ O objetivo do projeto é validar os principais endpoints da API Restful Booker a
 * Postman
 * REST API
 * JSON
-* HTTP
+* Swagger/OpenAPI
 * Git
 * GitHub
+* Markdown
 
 ---
 
@@ -34,121 +34,34 @@ O objetivo do projeto é validar os principais endpoints da API Restful Booker a
 
 Restful Booker
 
-```text
 https://restful-booker.herokuapp.com
-```
 
-API pública utilizada para estudos e prática de testes de software.
-
----
-
-# Escopo dos Testes
-
-## Autenticação
-
-* Geração de Token
-* Validação de Credenciais Inválidas
-
-## Reservas
-
-* Listagem de Reservas
-* Consulta por ID
-* Criação de Reserva
-* Atualização de Reserva
-* Exclusão de Reserva
-
-## Validações
-
-* Códigos HTTP
-* Contratos JSON
-* Tratamento de Erros
-* Campos Obrigatórios
-* Validação de Dados
-
----
-
-# Casos de Teste Executados
-
-| ID    | Caso de Teste                                         | Status               |
-| ----- | ----------------------------------------------------- | -------------------- |
-| CT001 | Gerar Token de Acesso                                 | Aprovado             |
-| CT002 | Gerar Token com Credenciais Inválidas                 | Aprovado             |
-| CT003 | Listar Todas as Reservas Cadastradas                  | Aprovado             |
-| CT004 | Criar Reserva com Dados Válidos                       | Aprovado             |
-| CT005 | Consultar Reserva Existente por ID                    | Aprovado             |
-| CT006 | Consultar Reserva Inexistente por ID                  | Aprovado             |
-| CT007 | Criar Reserva com Campos Obrigatórios Ausentes        | Defeito Identificado |
-| CT008 | Criar Reserva com Formato de Data Inválido            | Defeito Identificado |
-| CT009 | Atualizar Reserva Existente com Token Válido          | Aprovado             |
-| CT010 | Atualizar Reserva Existente sem Token                 | Aprovado             |
-| CT011 | Atualizar Reserva Inexistente                         | Aprovado             |
-| CT012 | Excluir Reserva Existente com Token Válido            | Aprovado             |
-| CT013 | Excluir Reserva Existente sem Token                   | Aprovado             |
-| CT014 | Excluir Reserva Inexistente                           | Aprovado             |
-| CT015 | Validar Contrato JSON da Criação de Reserva           | Aprovado             |
-| CT016 | Validar Contrato JSON da Consulta de Reserva          | Aprovado             |
-| CT017 | Validar Código HTTP para Requisições Bem-Sucedidas    | Aprovado             |
-| CT018 | Validar Tratamento de Erro para Requisições Inválidas | Aprovado             |
-
----
-
-# Resultado da Execução
-
-| Métrica                | Resultado |
-| ---------------------- | --------- |
-| Casos Planejados       | 18        |
-| Casos Executados       | 18        |
-| Aprovados              | 16        |
-| Defeitos Identificados | 2         |
-| Taxa de Execução       | 100%      |
-
----
-
-# Defeitos Identificados
-
-## BUG001
-
-API aceita criação de reserva com formato de data inválido.
-
-**Caso Relacionado:** CT008
-
-**Severidade:** Média
-
----
-
-## BUG002
-
-API retorna HTTP 500 ao receber campos obrigatórios ausentes.
-
-**Caso Relacionado:** CT007
-
-**Severidade:** Baixa
+API pública utilizada para estudos e práticas de testes de software.
 
 ---
 
 # Estrutura do Projeto
 
 ```text
-QA-api-tests-postman-sql/
+QA-api-tests-postman/
 │
 ├── collections/
+│   └── RestfulBooker.postman_collection.json
+│
 ├── environments/
+│   └── Ambiente-RestfulBooker.postman_environment.json
 │
 ├── docs/
-│   ├── Plano_de_Testes.md
-│   ├── Cenarios_de_Teste.md
+│   ├── Planejamento_de_Testes.md
 │   ├── Casos_de_Teste.md
-│   ├── Relatorio_de_Execucao.md
+│   ├── Relatorio_Execucao.md
 │   ├── Registro_de_Defeitos.md
 │   │
 │   ├── Evidencias/
-│   │   ├── CT001
-│   │   ├── CT002
-│   │   └── ...
 │   │
 │   └── Defeitos/
 │       ├── BUG001_API_aceita_data_invalida.md
-│       ├── BUG002_API_retorna_500_para_campos_ausentes.md
+│       ├── BUG002_API_retorna_500.md
 │       └── Evidencias/
 │
 └── README.md
@@ -156,26 +69,130 @@ QA-api-tests-postman-sql/
 
 ---
 
-# Documentação
+# Casos de Teste
 
-O projeto contém:
+## Autenticação
 
-* Plano de Testes
-* Cenários de Teste
-* Casos de Teste
-* Evidências de Execução
-* Relatório de Execução
-* Registro de Defeitos
-* Evidências dos Defeitos
+* CT001 - Gerar Token de Acesso
+* CT002 - Gerar Token com Credenciais Inválidas
+
+## Reservas
+
+* CT003 - Listar Todas as Reservas
+* CT004 - Criar Reserva com Dados Válidos
+* CT005 - Consultar Reserva Existente
+* CT006 - Consultar Reserva Inexistente
+* CT007 - Criar Reserva com Campos Obrigatórios Ausentes
+* CT008 - Criar Reserva com Formato de Data Inválido
+* CT009 - Atualizar Reserva Existente com Token
+* CT010 - Atualizar Reserva Existente sem Token
+* CT011 - Atualizar Reserva Inexistente
+* CT012 - Excluir Reserva Existente com Token
+* CT013 - Excluir Reserva Existente sem Token
+* CT014 - Excluir Reserva Inexistente
+
+## Validações Gerais
+
+* CT015 - Validar Contrato JSON da Criação
+* CT016 - Validar Contrato JSON da Consulta
+* CT017 - Validar Códigos HTTP
+* CT018 - Validar Tratamento de Erros
+
+# Resultado da Execução
+
+| Métrica | Resultado |
+|----------|----------|
+| Casos Planejados | 18 |
+| Casos Executados | 18 |
+| Casos Aprovados | 16 |
+| Defeitos Registrados | 2 |
+| Taxa de Execução | 100% |
+
+---
+
+# Postman Flows
+
+Foram criados fluxos visuais para demonstrar a execução dos principais cenários da API.
+
+## Flow 01 - CRUD Positivo
+
+- Autenticação
+- Listagem de Reservas
+- Criação de Reserva
+- Consulta por ID
+- Atualização
+- Exclusão
+
+## Flow 02 - Validação de Entrada
+
+- Credenciais Inválidas
+- Reserva Inexistente
+- Campos Obrigatórios Ausentes
+- Data Inválida
+
+### Defeitos Identificados
+
+- BUG001 - API aceita criação de reserva com formato de data inválido.
+- BUG002 - API retorna HTTP 500 para campos obrigatórios ausentes.
+
+## Flow 03 - Autorização e Recursos
+
+- Atualização sem Token
+- Exclusão sem Token
+- Atualização de Recurso Inexistente
+- Exclusão de Recurso Inexistente
+
+## Flow 04 - Validações Gerais
+
+- Contratos JSON
+- Códigos HTTP
+- Tratamento de Erros
+
+---
+
+# Defeitos Encontrados
+
+| ID     | Caso de Teste | Descrição                                                  |
+| ------ | ------------- | ---------------------------------------------------------- |
+| BUG001 | CT008         | API aceita criação de reserva com formato de data inválido |
+| BUG002 | CT007         | API retorna HTTP 500 para campos obrigatórios ausentes     |
+
+---
+
+# Resultados
+
+* 18 casos de teste planejados.
+* Fluxos positivos e negativos executados.
+* Validação de contratos JSON realizada.
+* Defeitos identificados e documentados.
+* Evidências registradas para rastreabilidade.
+
+---
+
+# Competências Demonstradas
+
+- Plano de Testes
+- Cenários de Teste
+- Casos de Teste
+- Testes Funcionais
+- Testes de API REST
+- Testes Positivos e Negativos
+- Validação de Contratos JSON
+- Validação de Códigos HTTP
+- Registro de Evidências
+- Gestão de Defeitos
+- Documentação Técnica
+- Postman Flows
+- Git e GitHub
 
 ---
 
 # Próximas Evoluções
 
-* Automação da Collection utilizando Newman
-* Geração de Relatórios HTML
-* Integração com GitHub Actions
-* Execução automatizada em Pipeline CI/CD
+- Execução automatizada com Newman
+- Relatórios HTML
+- Integração com GitHub Actions
+- Pipeline CI/CD para execução automática dos testes
 
 ---
 
@@ -183,4 +200,13 @@ O projeto contém:
 
 Victor Hugo
 
-Analista de Testes (QA) Jr | Testes Manuais | Testes de API | Postman | Jira | Git | SQL
+Analista de Testes (QA)
+
+GitHub: https://github.com/CafeteriaDaYuumi
+
+## Versão
+
+v0.3.0-beta
+
+Última atualização: Junho/2026
+

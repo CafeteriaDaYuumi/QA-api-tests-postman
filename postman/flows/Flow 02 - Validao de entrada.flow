@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "name": "Flow 02 - Validao de entrada",
+  "description": "",
+  "flow": {
+    "description": "",
+    "nodes": {
+      "iGPunzmu": {
+        "type": "ev/endpoint@3",
+        "pos": {
+          "x": 0,
+          "y": 0
+        },
+        "config": {
+          "inputs": [],
+          "data": "",
+          "language": "json",
+          "allowAnyType": false
+        },
+        "ui": {
+          "data": {
+            "triggerType": "ev/endpoint@3"
+          },
+          "namedInputsExpanded": true
+        }
+      },
+      "-1GTjcu9": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 352,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "9Af6Fddb7F6FAA9EDFf2B3Eb",
+            "collection": "bEbFe6a65b8a5EA7Ec0B354B",
+            "inExtensibleCollection": true,
+            "name": "CT002_Gerar Token com Credenciais Inválidas",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "Dz2vJ_yw",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "jg0oCcW9": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 720,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "fE8ca82A46ec8bA2EA5B886f",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT006 - Consultar Reserva Inexistente por ID",
+            "method": "GET"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "EiauOOGN",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "txDIOhht": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 1080,
+          "y": -8
+        },
+        "config": {
+          "element": {
+            "id": "b2F1aE9cfAB5Cbcf4EdF04aD",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT007 - Criar Reserva com Campos Obrigatórios Ausentes",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "txq7nkQJ",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": false,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "o4O3xb-1": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 328,
+          "y": 344
+        },
+        "config": {
+          "element": {
+            "id": "a04ffa312DAEe17F9A7aCeA5",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT008 - Criar Reserva com Formato de Data Inválido",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "hvl5oHbT",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      }
+    },
+    "connections": {
+      "8-TnfU2W": {
+        "source": "iGPunzmu",
+        "target": "-1GTjcu9",
+        "sourcePort": "data",
+        "targetPort": "AI"
+      },
+      "OH7sj7jv": {
+        "source": "-1GTjcu9",
+        "target": "jg0oCcW9",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "-I35BXEt": {
+        "source": "jg0oCcW9",
+        "target": "txDIOhht",
+        "sourcePort": "fail",
+        "targetPort": "AI"
+      },
+      "jzB0e2Wf": {
+        "source": "txDIOhht",
+        "target": "o4O3xb-1",
+        "sourcePort": "fail",
+        "targetPort": "AI"
+      }
+    },
+    "annotations": {
+      "TgjLy9w5": {
+        "type": "annotation/text@1",
+        "pos": {
+          "x": 728,
+          "y": -80
+        },
+        "position": "absolute",
+        "ui": {
+          "data": {},
+          "size": {
+            "width": 332.76059850374065,
+            "height": 0
+          }
+        },
+        "message": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "BUG001 - API aceita criação de reserva com formato de data inválido."
+                },
+                {
+                  "type": "hardBreak"
+                },
+                {
+                  "type": "text",
+                  "text": "Identificado durante a execução do CT008."
+                }
+              ]
+            }
+          ]
+        },
+        "format": "tiptap",
+        "width": 332.76059850374065
+      },
+      "unuaGsaB": {
+        "type": "annotation/text@1",
+        "pos": {
+          "x": 1088,
+          "y": -80
+        },
+        "position": "absolute",
+        "ui": {
+          "data": {},
+          "size": {
+            "width": 351.1620947630922,
+            "height": 0
+          }
+        },
+        "message": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "BUG002 - API retorna HTTP 500 para campos obrigatórios ausentes."
+                },
+                {
+                  "type": "hardBreak"
+                },
+                {
+                  "type": "text",
+                  "text": "Identificado durante a execução do CT007."
+                }
+              ]
+            }
+          ]
+        },
+        "format": "tiptap",
+        "width": 351.1620947630922
+      }
+    },
+    "groups": {},
+    "webhook": {
+      "payloadContent": "body-only",
+      "responseType": "default"
+    },
+    "forms": {},
+    "modules": {},
+    "io": {},
+    "ports": {},
+    "meta": {},
+    "scenes": {},
+    "scenarios": {},
+    "config": {
+      "definitions": {},
+      "constants": {}
+    }
+  },
+  "lockbox": {},
+  "info": {
+    "_postman_id": "5564fae3-df1e-4763-976a-4bac29ca1411"
+  },
+  "_postman_exported_at": "2026-06-21T16:01:48.015Z",
+  "_postman_exported_using": "Postman/Local Mode"
+}

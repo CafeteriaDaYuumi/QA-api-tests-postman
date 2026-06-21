@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "name": "Flow 03 - Autorizao e recursos",
+  "description": "",
+  "flow": {
+    "description": "",
+    "nodes": {
+      "HEEsxajb": {
+        "type": "ev/endpoint@3",
+        "pos": {
+          "x": 0,
+          "y": 0
+        },
+        "config": {
+          "inputs": [],
+          "data": "",
+          "language": "json",
+          "allowAnyType": false
+        },
+        "ui": {
+          "data": {
+            "triggerType": "ev/endpoint@3"
+          },
+          "namedInputsExpanded": true
+        }
+      },
+      "5SLqtQ69": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 272,
+          "y": -80
+        },
+        "config": {
+          "element": {
+            "id": "e4Ceb079fcc3d1c7BfEc17Aa",
+            "collection": "bEbFe6a65b8a5EA7Ec0B354B",
+            "inExtensibleCollection": true,
+            "name": "CT001_Gerar Token de Acesso",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "ObPGKF7y",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "KbAtViHQ": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 592,
+          "y": -80
+        },
+        "config": {
+          "element": {
+            "id": "C5caD897Fa8f0eBA6D89AF43",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT004 - Criar Reserva com Dados Válidos",
+            "method": "POST"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "lBOKee01",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "Yg9-j4hq": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 224,
+          "y": 296
+        },
+        "config": {
+          "element": {
+            "id": "03eA2b6E3b1d3BE9Fd15bfb7",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT010 - Atualizar Reserva Existente sem Token",
+            "method": "PUT"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "sGRrccdz",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "LSxkHN_t",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "bookingID"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": false,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "XGPLctNz": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 608,
+          "y": 296
+        },
+        "config": {
+          "element": {
+            "id": "dae0A9e3dEb16f28cd78Bd42",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT013 - Excluir Reserva Existente sem Token",
+            "method": "DELETE"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "CJPdFWja",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "BQw4uOSH",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "bookingID"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "zGocYDHc": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 232,
+          "y": 632
+        },
+        "config": {
+          "element": {
+            "id": "Da19CefCFf0CC77B0a9B9c7f",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT014 - Excluir Reserva Inexistente",
+            "method": "DELETE"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "iNnbxMR-",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "jlZf_39g",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "token"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": true,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      },
+      "D9X-wDix": {
+        "type": "task/http-request@2",
+        "pos": {
+          "x": 552,
+          "y": 656
+        },
+        "config": {
+          "element": {
+            "id": "Da19CefCFf0CC77B0a9B9c7f",
+            "collection": "97D0ab7e7fEE85b1bCD4cCAe",
+            "inExtensibleCollection": true,
+            "name": "CT014 - Excluir Reserva Inexistente",
+            "method": "DELETE"
+          },
+          "environment": "da4b4fcc-5382-4c2a-bf7e-4f04378cc277",
+          "parseBody": "auto",
+          "requestVariables": [
+            {
+              "id": "IVXUxGge",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "baseURL"
+            },
+            {
+              "id": "bbplyO_P",
+              "type": null,
+              "kind": null,
+              "value": null,
+              "key": "token"
+            }
+          ],
+          "scriptsModifyEnvVars": true,
+          "ignoreTestResults": true,
+          "trackGlobalEnvironment": false,
+          "requestVariables__expanded": true
+        },
+        "ui": {
+          "data": {},
+          "namedInputsExpanded": true
+        }
+      }
+    },
+    "connections": {
+      "rQZFr134": {
+        "source": "HEEsxajb",
+        "target": "5SLqtQ69",
+        "sourcePort": "data",
+        "targetPort": "AI"
+      },
+      "QIS4uoeC": {
+        "source": "5SLqtQ69",
+        "target": "KbAtViHQ",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "qioVV5Nn": {
+        "source": "KbAtViHQ",
+        "target": "Yg9-j4hq",
+        "sourcePort": "success",
+        "targetPort": "AI"
+      },
+      "jNrp5EvP": {
+        "source": "Yg9-j4hq",
+        "target": "XGPLctNz",
+        "sourcePort": "fail",
+        "targetPort": "AI"
+      },
+      "yeZbtYHC": {
+        "source": "XGPLctNz",
+        "target": "zGocYDHc",
+        "sourcePort": "fail",
+        "targetPort": "AI"
+      },
+      "9A7BrSxn": {
+        "source": "zGocYDHc",
+        "target": "D9X-wDix",
+        "sourcePort": "fail",
+        "targetPort": "AI"
+      }
+    },
+    "annotations": {},
+    "groups": {},
+    "webhook": {
+      "payloadContent": "body-only",
+      "responseType": "default"
+    },
+    "forms": {},
+    "modules": {},
+    "io": {},
+    "ports": {},
+    "meta": {},
+    "scenes": {},
+    "scenarios": {},
+    "config": {
+      "definitions": {},
+      "constants": {}
+    }
+  },
+  "lockbox": {},
+  "info": {
+    "_postman_id": "fe677780-daec-4daa-a774-dd04bd1554fa"
+  },
+  "_postman_exported_at": "2026-06-21T15:57:39.603Z",
+  "_postman_exported_using": "Postman/Local Mode"
+}
