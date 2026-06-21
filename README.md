@@ -52,7 +52,8 @@ QA-api-tests-postman/
 │   └── Ambiente-RestfulBooker.postman_environment.json
 │
 ├── docs/
-│   ├── Planejamento_de_Testes.md
+│   ├── Cenario_de_Teste.md
+│   ├── Plano_de_Teste.md
 │   ├── Casos_de_Teste.md
 │   ├── Relatorio_Execucao.md
 │   ├── Registro_de_Defeitos.md
